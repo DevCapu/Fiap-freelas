@@ -3,13 +3,12 @@ import styled from 'styled-components';
 export const StyledFreelancerList = styled.div`
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 20px;
+    justify-content:space-between;
+    gap: 40px;
 `;
 
 const PersonCard = styled.div`
-    min-width: 300px;
-    max-width: 400px;
+    width: 300px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -20,11 +19,14 @@ const PersonCard = styled.div`
     color: #333333;
 `;
 
-const PersonImage = styled.img`
-    width: 70px;
-    height: 70px;
+const PersonCardLarge = styled(PersonCard)`
+    width: 100%;
+`;
+
+const PersonImage = styled.img<{ $width?: string; $height?: string;}>`
+    width: ${props => props.width ? props.$width+"px" :  "70px" };
+    height: ${props => props.height ? props.$height+"px" : "70px"};
     border-radius: 50%;
-    margin-bottom: 20px;
     margin-right: 16px
 `;
 
@@ -32,6 +34,7 @@ const PersonName = styled.span`
     font-size: 1.5rem;
     font-weight: bold;
     color: #333333;
+    margin-bottom: 12px;
 `;
 
 const PersonStack = styled.span`
@@ -48,11 +51,24 @@ const ContactImage = styled.img`
     margin-right: 16px
 `;
 
-const PriceSpan = styled.span`
-    margin-right: 2px;
+const Chip = styled.span<{ $available?: boolean; }>`
+    background: ${props => props.$available ? "#52be3f4d" : "#bf4f744f"};
+    color: ${props => props.$available ? "#52be3f" : "#BF4F74"};
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+`;
+
+const PriceLabel = styled.span`
+    color: #B4B4B4;
+    font-size: 1rem;
+`;
+
+const PriceValue = styled.span`
+    font-size: 1.5rem;
+    font-weight: bold;
     color: #333333;
-    font-weight: bolder;
 `;
 
 
-export { PersonCard, PersonImage, PersonName, PersonStack, ContactImage, PriceSpan }
+export { PersonCard, PersonImage, PersonName, PersonCardLarge,PersonStack, ContactImage, Chip, PriceLabel, PriceValue }

@@ -1,18 +1,22 @@
-import { PersonCard, PersonImage, PersonName, PersonStack, ContactImage, PriceSpan } from './styles';
+import { PersonCard, PersonImage, PersonName, PersonStack, ContactImage, PriceLabel, PriceValue, Chip } from './styles';
 import { PrimaryButton } from '../commons/Button';
-import { Column, Row } from '../commons/LayoutDirections';
+import { Column, Row, SpacedBetweenRow } from '../commons/LayoutDirections';
 
 export interface FreelancerData {
     id: number;
     photo: string;
     name: string;
     technologies: string[];
+    priceByHour: string,
+    github: string,
+    linkedin: string,
+    bio: string,
+    city: string,
+    available: boolean,
     lastWorks: string[];
 }
 
-const Freelancer = (freelancer: FreelancerData) => {
-    const { id, photo, name, technologies } = freelancer;
-
+const Freelancer = ({ photo, name, technologies, available, priceByHour }: FreelancerData) => {
     return (
         <PersonCard>
             <Column>
@@ -23,12 +27,16 @@ const Freelancer = (freelancer: FreelancerData) => {
                         <PersonStack>{technologies.join(", ")}</PersonStack>
                     </Column>
                 </Row>
-                <Row>
-                    <ContactImage src="https://avatar.iran.liara.run/boy" alt="Github" />
-                    <ContactImage src="https://avatar.iran.liara.run/boy" alt="Linkedin" />
-                </Row>
-                <PriceByHour price={"56"} />
-
+                <SpacedBetweenRow>
+                    <Chip $available={available}>{available ? "Disponível" : "Indisponível" }</Chip>
+                    <div>
+                        <Row>
+                            <ContactImage src={"https://avatar.iran.liara.run/boy"} alt="Github" />
+                            <ContactImage src="https://avatar.iran.liara.run/boy" alt="linkedIn" />
+                        </Row>
+                      </div>
+                </SpacedBetweenRow>
+                <PriceByHour price={priceByHour} />
                 <PrimaryButton>Ver mais...</PrimaryButton>
             </Column>
         </PersonCard>
@@ -39,12 +47,12 @@ interface PriceByHourProps {
     price: string
 }
 
-const PriceByHour = ({ price }: PriceByHourProps) => {
+export const PriceByHour = ({ price }: PriceByHourProps) => {
     return (
-        <Row>
-            <PriceSpan>valor:</PriceSpan>
-            <span>R${price}<small>/h</small></span>
-        </Row>
+        <SpacedBetweenRow>
+            <PriceLabel>valor</PriceLabel>
+            <PriceValue>R${price}<small>/h</small></PriceValue>
+        </SpacedBetweenRow>
     );
 };
 

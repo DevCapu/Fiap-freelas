@@ -10,13 +10,20 @@ const FreelancerList = ( freelancers: FreelancerListProps) => {
         <StyledFreelancerList>
          {
          freelancers.freelancers.map((freelancer: FreelancerData) => (
-            <Freelancer 
-            key={freelancer.id} 
-            name={freelancer.name} 
-            id={0}
-             photo={freelancer.photo}
-              technologies={freelancer.technologies}
-              lastWorks={[]} />
+            <Freelancer
+                key={freelancer.id}
+                id={freelancer.id}
+                name={freelancer.name}
+                photo={freelancer.photo}
+                technologies={freelancer.technologies}
+                priceByHour={freelancer.priceByHour}
+                github={freelancer.github}
+                linkedin={freelancer.linkedin}
+                bio={freelancer.bio}
+                city={freelancer.city}
+                available={freelancer.available}
+                lastWorks={freelancer.lastWorks}
+            />
         ))
         }
         </StyledFreelancerList>
