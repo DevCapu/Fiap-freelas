@@ -1,9 +1,10 @@
 import { PersonCard, PersonImage, PersonName, PersonStack, ContactImage, PriceLabel, PriceValue, Chip } from './styles';
 import { PrimaryButton } from '../commons/Button';
 import { Column, Row, SpacedBetweenRow } from '../commons/LayoutDirections';
+import { Link } from 'react-router-dom';
 
 export interface FreelancerData {
-    id: number;
+    id: string;
     photo: string;
     name: string;
     technologies: string[];
@@ -16,7 +17,7 @@ export interface FreelancerData {
     lastWorks: string[];
 }
 
-const Freelancer = ({ photo, name, technologies, available, priceByHour }: FreelancerData) => {
+const Freelancer = ({ id, photo, name, technologies, github, linkedin, available, priceByHour }: FreelancerData) => {
     return (
         <PersonCard>
             <Column>
@@ -31,13 +32,17 @@ const Freelancer = ({ photo, name, technologies, available, priceByHour }: Freel
                     <Chip $available={available}>{available ? "Disponível" : "Indisponível" }</Chip>
                     <div>
                         <Row>
-                            <ContactImage src={"https://avatar.iran.liara.run/boy"} alt="Github" />
-                            <ContactImage src="https://avatar.iran.liara.run/boy" alt="linkedIn" />
+                            <Link to={github}> <ContactImage src={"https://cdn-icons-png.flaticon.com/512/25/25231.png"} alt="Github" /> </Link>
+                            <Link to={`https://www.linkedin.com/in/${linkedin}`}>
+                                <ContactImage src="https://static.vecteezy.com/system/resources/previews/023/986/970/non_2x/linkedin-logo-linkedin-logo-transparent-linkedin-icon-transparent-free-free-png.png" alt="linkedIn" />
+                            </Link>
                         </Row>
                       </div>
                 </SpacedBetweenRow>
                 <PriceByHour price={priceByHour} />
-                <PrimaryButton>Ver mais...</PrimaryButton>
+                <Link to={`freelancer/${id}`}>
+                     <PrimaryButton>Ver mais...</PrimaryButton>
+                </Link>
             </Column>
         </PersonCard>
     )

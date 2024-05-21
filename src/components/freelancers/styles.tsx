@@ -24,10 +24,11 @@ const PersonCardLarge = styled(PersonCard)`
 `;
 
 const PersonImage = styled.img<{ $width?: string; $height?: string;}>`
-    width: ${props => props.width ? props.$width+"px" :  "70px" };
-    height: ${props => props.height ? props.$height+"px" : "70px"};
+    width: ${props => props.width ? props.$width+"px" :  "100px" };
+    height: ${props => props.height ? props.$height+"px" : "100px"};
     border-radius: 50%;
-    margin-right: 16px
+    margin-right: 16px;
+    object-fit: cover;
 `;
 
 const PersonName = styled.span`

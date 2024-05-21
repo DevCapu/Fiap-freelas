@@ -1,10 +1,19 @@
+import { Navigate, redirect, useParams } from "react-router-dom";
 import { PrimaryButton } from "../../components/commons/Button";
 import { Column, SpacedBetweenRow } from "../../components/commons/LayoutDirections";
-import { FreelancerData } from "../../components/freelancers/Freelancer";
 import { PersonCardLarge, PersonImage, PersonName, PersonStack, PriceValue } from "../../components/freelancers/styles";
+import { findFreela } from "../../services/FreelancersService";
 
 
-const FreelancerDetailsScreen = (freelancer: FreelancerData) => {
+const FreelancerDetailsScreen = () => {
+    const { id } = useParams()
+
+    const freelancer = findFreela(id!!)
+    
+    if (!freelancer) {
+        return <Navigate to={"/"}/>
+    }
+
     return (
         <PersonCardLarge>
         <Column>
@@ -21,14 +30,9 @@ const FreelancerDetailsScreen = (freelancer: FreelancerData) => {
           
           <h2>Meus últimos trabalhos</h2>
           <ul>
-            {freelancer.lastWorks.map((work) => {
-                return (
-                    <li>{work}</li>
-                )
-                })}
+            {freelancer.lastWorks.map((work) => (<li>{work}</li>))}
           </ul>
-
-          <PrimaryButton>Entrar em contato</PrimaryButton>
+            {freelancer.available ? (<a href={`https://www.linkedin.com/in/${freelancer.linkedin}`}><PrimaryButton>Entrar em contato</PrimaryButton></a>) : (<PrimaryButton disabled={true}>Indisponível</PrimaryButton>)}
         </Column>
       </PersonCardLarge>
     )
